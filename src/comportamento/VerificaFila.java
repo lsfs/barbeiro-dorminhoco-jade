@@ -19,7 +19,7 @@ public class VerificaFila extends OneShotBehaviour{
     public void action() {
         ACLMessage mensagem = new ACLMessage(ACLMessage.REQUEST);
                 mensagem.addReceiver(new AID("Barbearia", AID.ISLOCALNAME));
-                mensagem.setOntology("haClientes");
+                mensagem.setOntology("barbeiroVerificaFila");
                 mensagem.setContent("Ha clientes?");
                 myAgent.send(mensagem);
     }
