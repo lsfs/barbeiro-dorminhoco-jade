@@ -21,7 +21,7 @@ public class AgenteBarbearia extends Agent {
     private boolean dormindo;
     Queue fila = new LinkedList();
     final int cadeiras = 5;
-    int contadorFila=0;
+    int contadorFila = 0;
 
     protected void setup() {
 
@@ -34,7 +34,6 @@ public class AgenteBarbearia extends Agent {
                     if (mensagem.getOntology().equalsIgnoreCase("barbeiroVerificaFila")) {
 
                         ACLMessage resposta = mensagem.createReply();
-                       
 
                         if (fila.isEmpty()) {
                             resposta.setOntology("naoTemClientes");
@@ -43,15 +42,13 @@ public class AgenteBarbearia extends Agent {
                         } else {
                             resposta.setOntology("temClientes");
                             String proximoDaFila = (String) fila.poll();
-                        //    fila.poll();
-                            
+                            //    fila.poll();
+
                             resposta.setContent(proximoDaFila);
-                                              
-                            
+
                         }
                         myAgent.send(resposta);
-                        
-                        
+
                     } else if (mensagem.getOntology().equalsIgnoreCase("barbeiroInformaStatus")) {
 
                         String status = mensagem.getContent();
@@ -76,22 +73,20 @@ public class AgenteBarbearia extends Agent {
                         myAgent.send(statusBarbeiro);
 
                     } else if (mensagem.getOntology().equalsIgnoreCase("verificaEspacoFila")) {
-                        
-                        
+
                         if (fila.size() < cadeiras) {
-                            
+
                             fila.add(mensagem.getSender().getLocalName());
-                            System.out.println(getLocalName() + ": O cliente " + mensagem.getSender().getLocalName() + " entrou na fila. Posição (" + fila.size()+")");
+                            System.out.println(getLocalName() + ": O cliente " + mensagem.getSender().getLocalName() + " entrou na fila. Posição (" + fila.size() + ")");
                             contadorFila++;
-                            
-                            
+
                         } else {
-                           ACLMessage naoHaEspacoFila = new ACLMessage(ACLMessage.REFUSE);
-                           naoHaEspacoFila.setContent("naoTemEspaco");
-                           naoHaEspacoFila.setOntology("naoTemEspaco");
-                           naoHaEspacoFila.addReceiver(new AID(mensagem.getSender().getLocalName(),AID.ISLOCALNAME));
-                           myAgent.send(naoHaEspacoFila);
-}
+                            ACLMessage naoHaEspacoFila = new ACLMessage(ACLMessage.REFUSE);
+                            naoHaEspacoFila.setContent("naoTemEspaco");
+                            naoHaEspacoFila.setOntology("naoTemEspaco");
+                            naoHaEspacoFila.addReceiver(new AID(mensagem.getSender().getLocalName(), AID.ISLOCALNAME));
+                            myAgent.send(naoHaEspacoFila);
+                        }
 
                     }
 

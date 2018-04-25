@@ -20,7 +20,7 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author lufes
+ * @author luisfernando
  */
 public class Main {
 
