@@ -25,7 +25,6 @@ public class AgenteCliente extends Agent {
             public void action() {
                 Object[] dados = getArguments();
                 int delay = Integer.parseInt(dados[0].toString());
-                System.out.println(delay);
                 verificaBarbeiroAcordado(delay);
             }
         });
@@ -48,7 +47,6 @@ public class AgenteCliente extends Agent {
 
                         } else {
                             System.out.println(getLocalName() + ": O barbeiro está acordado e ocupado.");
-
                             ACLMessage verificaEspacoFila = new ACLMessage(ACLMessage.REQUEST);
                             verificaEspacoFila.setOntology("verificaEspacoFila");
                             verificaEspacoFila.setContent("verificaEspacoFila");
@@ -60,10 +58,12 @@ public class AgenteCliente extends Agent {
                     } else if (mensagem.getOntology().equalsIgnoreCase("corteFinalizado")) {
                         System.out.println(getLocalName() + ": Finalizei meu corte.");
                         myAgent.doDelete();
-                    } else if (mensagem.getOntology().equalsIgnoreCase("naoTemEspaco"));
+                    } else if (mensagem.getOntology().equalsIgnoreCase("naoTemEspaco")) {
+                        
+                        System.out.println(getLocalName() + ": Não há espaço na fila. Vou embora");
+                        myAgent.doDelete();
 
-                            System.out.println(getLocalName() + ": Não há espaço na fila. Vou embora");
-                             myAgent.doDelete();
+                    }
 
                 }
             }

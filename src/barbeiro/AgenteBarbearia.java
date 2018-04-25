@@ -5,6 +5,7 @@
  */
 package barbeiro;
 
+import jade.core.AID;
 import jade.core.Agent;
 import jade.core.behaviours.CyclicBehaviour;
 import jade.lang.acl.ACLMessage;
@@ -20,6 +21,7 @@ public class AgenteBarbearia extends Agent {
     private boolean dormindo;
     Queue fila = new LinkedList();
     final int cadeiras = 5;
+    int contadorFila=0;
 
     protected void setup() {
 
@@ -40,8 +42,8 @@ public class AgenteBarbearia extends Agent {
 
                         } else {
                             resposta.setOntology("temClientes");
-                            String proximoDaFila = (String) fila.peek();
-                            fila.poll();
+                            String proximoDaFila = (String) fila.poll();
+                        //    fila.poll();
                             
                             resposta.setContent(proximoDaFila);
                                               
@@ -74,19 +76,22 @@ public class AgenteBarbearia extends Agent {
                         myAgent.send(statusBarbeiro);
 
                     } else if (mensagem.getOntology().equalsIgnoreCase("verificaEspacoFila")) {
-
-                        if (fila.size() < 5) {
+                        
+                        
+                        if (fila.size() < cadeiras) {
                             
                             fila.add(mensagem.getSender().getLocalName());
-                            System.out.println(getLocalName() + ": O cliente " + mensagem.getSender().getLocalName() + " entrou na fila" + fila.size());
+                            System.out.println(getLocalName() + ": O cliente " + mensagem.getSender().getLocalName() + " entrou na fila. Posição (" + fila.size()+")");
+                            contadorFila++;
                             
                             
-                        } else if(fila.size()>=5) {
-                           ACLMessage naoHaEspacoFila = mensagem.createReply();
+                        } else {
+                           ACLMessage naoHaEspacoFila = new ACLMessage(ACLMessage.REFUSE);
                            naoHaEspacoFila.setContent("naoTemEspaco");
                            naoHaEspacoFila.setOntology("naoTemEspaco");
+                           naoHaEspacoFila.addReceiver(new AID(mensagem.getSender().getLocalName(),AID.ISLOCALNAME));
                            myAgent.send(naoHaEspacoFila);
-                        }
+}
 
                     }
 

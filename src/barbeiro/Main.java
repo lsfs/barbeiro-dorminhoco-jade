@@ -40,15 +40,17 @@ public class Main {
         AgentController cliente6 = null;
         AgentController cliente7 = null;
         AgentController cliente8 = null;
+        AgentController cliente9 = null;
 
         Object[] delay1 = {2000};
         Object[] delay2 = {3000};
         Object[] delay3 = {3000};
         Object[] delay4 = {3000};
-        Object[] delay5 = {3000};
-        Object[] delay6 = {3000};
-        Object[] delay7 = {3000};
-        Object[] delay8 = {3000};
+        Object[] delay5 = {4000};
+        Object[] delay6 = {5000};
+        Object[] delay7 = {5000};
+        Object[] delay8 = {5000};
+        Object[] delay9={13000};
 
         try {
             rma = containerController.createNewAgent("rma", "jade.tools.rma.rma", new Object[0]);
@@ -60,8 +62,11 @@ public class Main {
             cliente4 = containerController.createNewAgent("Cliente-4", "barbeiro.AgenteCliente", delay4);
             cliente5 = containerController.createNewAgent("Cliente-5", "barbeiro.AgenteCliente", delay5);
             cliente6 = containerController.createNewAgent("Cliente-6", "barbeiro.AgenteCliente", delay6);
-            cliente7 = containerController.createNewAgent("Cliente-7", "barbeiro.AgenteCliente", delay6);
-            cliente8 = containerController.createNewAgent("Cliente-8", "barbeiro.AgenteCliente", delay6);
+            cliente7 = containerController.createNewAgent("Cliente-7", "barbeiro.AgenteCliente", delay7);
+            cliente8 = containerController.createNewAgent("Cliente-8", "barbeiro.AgenteCliente", delay8);
+            cliente9 = containerController.createNewAgent("Cliente-9", "barbeiro.AgenteCliente", delay9);
+            
+            
             
             rma.start();
             barbeiro.start();
@@ -72,6 +77,9 @@ public class Main {
             cliente4.start();
             cliente5.start();
             cliente6.start();
+            cliente7.start();
+            cliente8.start();
+            cliente9.start();
 
         } catch (StaleProxyException ex) {
             ex.printStackTrace();
